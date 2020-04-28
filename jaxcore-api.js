@@ -3,6 +3,16 @@ const WebSocketPlugin = require('jaxcore-websocket-plugin/websocket-client');
 
 function connect(options) {
 	if (!options) options = {};
+
+	let websocketOptions = {
+		protocol: options.protocol || 'http',
+		host: options.host || 'localhost',
+		port: options.port || 37500,
+		options: {
+			reconnection: true
+		}
+	};
+
     return new Promise(function (resolve, reject) {
 		const jaxcore = new Jaxcore();
 		jaxcore.addPlugin(WebSocketPlugin);
@@ -30,7 +40,7 @@ function connect(options) {
 							console.log('adapter error', e);
 						} else {
 							console.log('adapter created', adapter);
-							onAdapterCreated(adapter);
+							if (onAdapterCreated) onAdapterCreated(adapter);
 						}
 					});
 				} else {
@@ -57,7 +67,13 @@ function connect(options) {
 				} else if (websocketClient) {
 					if (!connected && !failed) {
 						connected = true;
-						resolve(jaxcore, connectSpinAdapter);
+
+						resolve({
+							options: o,
+							jaxcore,
+							websocketClient,
+							connectSpinAdapter
+						});
 					}
 				}
 			});
@@ -84,16 +100,7 @@ function connect(options) {
 			}
 		});
 
-		let o = {
-			protocol: options.protocol || 'http',
-			host: options.host || 'localhost',
-			port: options.port || 37500,
-			options: {
-				reconnection: true
-			}
-		};
-
-		connectSocket(o);
+		connectSocket(websocketOptions);
 	});
 }
 
