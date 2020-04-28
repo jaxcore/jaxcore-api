@@ -1,0 +1,11 @@
+{
+  "name": "jaxcore-api",
+  "version": "0.0.1",
+  "description": "Jaxcore API",
+  "main": "jaxcore-api.js",
+  "scripts": {
+    "test": "'"
+  },
+  "author": "Jaxcore Software Inc.",
+  "license": "MIT"
+}
