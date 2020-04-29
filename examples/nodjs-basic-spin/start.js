@@ -1,12 +1,11 @@
 const JaxcoreAPI = require('../../jaxcore-api');
-const Jaxcore = require('jaxcore');
 
 const red = [255, 0, 0];
 const blue = [255, 0, 0];
 const yellow = [255, 255, 0];
 const cyan = [0, 0, 255];
 
-class MyCustomAdapter extends Jaxcore.Adapter {
+class MyCustomAdapter extends JaxcoreAPI.Adapter {
     constructor() {
         super(...arguments);
 
@@ -55,13 +54,13 @@ class MyCustomAdapter extends Jaxcore.Adapter {
 }
 
 JaxcoreAPI.connect()
-    .then(api => {
-        // a new MyCustomAdapter instance will be created
-        // each time a Jaxcore Spin connects to the Websocket Server
-        // the adapter will be destroyed when the Spin disconnects
-        api.connectSpinAdapter(MyCustomAdapter);
-    })
-    .catch(e => {
-        console.log(e);
-        process.exit();
-    });
+.then(api => {
+    // a new instance of MyCustomAdapter will be created
+    // each time a Jaxcore Spin connects to the Websocket Server
+    // the adapter will be destroyed when the Spin disconnects
+    api.connectSpinAdapter(MyCustomAdapter);
+})
+.catch(e => {
+    console.log(e);
+    process.exit();
+});

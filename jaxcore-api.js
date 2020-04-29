@@ -69,7 +69,7 @@ function connect(options) {
 						connected = true;
 
 						resolve({
-							options: o,
+							websocketOptions,
 							jaxcore,
 							websocketClient,
 							connectSpinAdapter
@@ -105,6 +105,11 @@ function connect(options) {
 }
 
 module.exports = {
+	Jaxcore: Jaxcore,
+	Adapter: Jaxcore.Adapter,
+	Client: Jaxcore.Client,
+	Service: Jaxcore.Service,
+	Store: Jaxcore.Store,
     connect
     // connectExtension?
 };
